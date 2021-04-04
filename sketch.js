@@ -6,11 +6,18 @@ const Constraint = Matter.Constraint;
 var engine, world;
 var ball
 
+function preload(){
+  slingImage = loadImage("Sling.png");
+}
+
 function setup() {
   createCanvas(1500,500);
 
   engine = Engine.create();
+
   world = engine.world;
+
+  Angryball = new Ball(250,280)
 
   ball1 = new Pinkball(950,450);
 
@@ -30,11 +37,15 @@ function setup() {
 
   wood5 = new Wood1(950,220,90,90,10)
 
-  log3 = new Wood2(950,120,20,150, PI/7);
+  // log3 = new Wood2(950,120,20,150, PI/7);
 
-  log4 = new Wood2(870,120,20,150, -PI/7)
+  // log4 = new Wood2(870,120,20,150, -PI/7)
+
+  slingshot = new Rope(Angryball.body,{x:250, y:280});
 
   base = new Ground(1500/2,500,1500,30)
+
+  Engine.run(engine);
 
 }
 
@@ -42,6 +53,8 @@ function draw() {
   background(255,255,255);  
 
   Engine.update(engine);
+
+  image(slingImage,180,240,100,250)
 
   base.display(); 
 
@@ -63,9 +76,20 @@ function draw() {
 
   wood5.display();
 
-  log3.display();
+  // log3.display();
 
-  log4.display();
+  // log4.display();
 
-  text(mouseX+","+mouseY,200,200);
+  slingshot.display()
+
+  Angryball.display()
+
+  text(mouseX+","+mouseY,20,200);
+}
+
+function mouseDragged(){
+  Matter.Body.setPosition(Angryball.body,{x:mouseX,y:mouseY});
+}
+function mouseReleased(){
+  slingshot.fly()
 }
