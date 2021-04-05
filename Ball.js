@@ -1,9 +1,9 @@
 class Ball {
 	constructor(x,y){
 		var options={
-			restitution:1,
+			restitution:0.6,
 			friction:1,
-			density:1.2
+			density:1.3
 			}
 		this.height = 80;
         this.width = 100;
